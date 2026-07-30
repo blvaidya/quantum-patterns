@@ -1,0 +1,93 @@
+# ==============================================================================
+# Enterprise Quantum Patterns
+# Pattern #01 - Solver Adapter
+# ==============================================================================
+#
+# File:
+#     docker-compose.yml
+#
+# Purpose:
+#     Demonstrates how the Solver Adapter pattern can be deployed using
+#     containerized services.
+#
+# This file intentionally illustrates the architectural topology rather than a
+# production-ready deployment.
+#
+# In a real application:
+#
+#   • The Java service would expose REST APIs.
+#   • The selected SolverAdapter implementation would invoke either a
+#     classical or quantum optimization service.
+#   • Only one optimization service would typically be active for a given
+#     environment.
+#
+# This skeleton includes both services purely to visualize the architecture.
+#
+# ==============================================================================
+
+version: "3.9"
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Enterprise Business Service
+  #
+  # Hosts business logic that depends only on the SolverAdapter interface.
+  #
+  # The application never communicates directly with optimization engines.
+  # ---------------------------------------------------------------------------
+  java-service:
+
+    image: enterprise-quantum-patterns/java-service
+
+    container_name: solver-adapter-java
+
+    ports:
+      - "8080:8080"
+
+    environment:
+
+      #
+      # Select which implementation should be used.
+      #
+      # Typical values:
+      #
+      #   classical
+      #   quantum
+      #
+      SOLVER_ENGINE: classical
+
+    depends_on:
+      - classical-solver
+      - quantum-solver
+
+  # ---------------------------------------------------------------------------
+  # Classical Optimization Engine
+  #
+  # Represents any traditional optimization technology.
+  # ---------------------------------------------------------------------------
+  classical-solver:
+
+    image: enterprise-quantum-patterns/classical-solver
+
+    container_name: classical-solver
+
+    ports:
+      - "5001:5001"
+
+  # ---------------------------------------------------------------------------
+  # Quantum Optimization Engine
+  #
+  # Represents a future quantum implementation.
+  #
+  # This service exists to illustrate the pattern rather than execute
+  # quantum algorithms.
+  # ---------------------------------------------------------------------------
+  quantum-solver:
+
+    image: enterprise-quantum-patterns/quantum-solver
+
+    container_name: quantum-solver
+
+    ports:
+      - "5002:5002"

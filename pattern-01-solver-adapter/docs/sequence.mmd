@@ -1,0 +1,23 @@
+sequenceDiagram
+
+participant Client
+participant BusinessService
+participant SolverAdapter
+participant Solver
+participant Engine
+
+Client->>BusinessService: Optimize Route
+
+BusinessService->>SolverAdapter: optimize(request)
+
+SolverAdapter->>Solver: delegate(request)
+
+Solver->>Engine: execute()
+
+Engine-->>Solver: result
+
+Solver-->>SolverAdapter: OptimizationResult
+
+SolverAdapter-->>BusinessService: OptimizationResult
+
+BusinessService-->>Client: Response

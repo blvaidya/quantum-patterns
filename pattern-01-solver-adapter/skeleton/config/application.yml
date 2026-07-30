@@ -1,0 +1,64 @@
+# ==============================================================================
+# Enterprise Quantum Patterns
+# Pattern #01 - Solver Adapter
+# ==============================================================================
+#
+# File:
+#     application.yml
+#
+# Purpose:
+#     Demonstrates configuration-driven selection of SolverAdapter
+#     implementations.
+#
+# Architectural Principle
+# ------------------------
+#
+# Prefer changing configuration instead of modifying business code.
+#
+# Business services should remain identical regardless of which optimization
+# engine is currently active.
+#
+# ==============================================================================
+
+application:
+
+  name: Pattern-01-Solver-Adapter
+
+#
+# Select the active optimization implementation.
+#
+# Typical values:
+#
+#   classical
+#   quantum
+#
+solver:
+
+  engine: classical
+
+#
+# Reference endpoints.
+#
+# In a production implementation these values would normally be externalized
+# using environment variables or a configuration server.
+#
+classical:
+
+  endpoint: http://classical-solver:5001
+
+quantum:
+
+  endpoint: http://quantum-solver:5002
+
+#
+# Example future configuration.
+#
+# Additional optimization technologies can be introduced without changing
+# business services.
+#
+# ai:
+#   endpoint: http://ai-optimizer:5003
+#
+# cloud:
+#   endpoint: https://enterprise-cloud-optimizer
+#
