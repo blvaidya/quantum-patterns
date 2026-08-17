@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1100" height="650" viewBox="0 0 1100 650">
+  <title>Pattern #02 – Classical Fallback Architecture</title>
+  <desc>Business Service invokes Solver Adapter, which calls the Preferred Solver. On failure, execution falls back to the Classical Solver. Both paths produce an Optimization Result.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#333"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="650" fill="#ffffff"/>
+
+  <text x="550" y="42" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="26" font-weight="bold" fill="#222">
+    Pattern #02 – Classical Fallback
+  </text>
+
+  <!-- Nodes -->
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle">
+    <rect x="410" y="80" width="280" height="65" rx="10"
+          fill="#f4f4f4" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+    <text x="550" y="119" dominant-baseline="middle" fill="#222">
+      Business Service
+    </text>
+
+    <rect x="410" y="190" width="280" height="65" rx="10"
+          fill="#f4f4f4" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+    <text x="550" y="229" dominant-baseline="middle" fill="#222">
+      Solver Adapter
+    </text>
+
+    <rect x="410" y="300" width="280" height="65" rx="10"
+          fill="#f4f4f4" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+    <text x="550" y="339" dominant-baseline="middle" fill="#222">
+      Preferred Solver
+    </text>
+
+    <rect x="70" y="430" width="280" height="65" rx="10"
+          fill="#f4f4f4" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+    <text x="210" y="469" dominant-baseline="middle" fill="#222">
+      Classical Solver
+    </text>
+
+    <rect x="750" y="430" width="280" height="65" rx="10"
+          fill="#f4f4f4" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+    <text x="890" y="469" dominant-baseline="middle" fill="#222">
+      Optimization Result
+    </text>
+  </g>
+
+  <!-- Main flow -->
+  <g fill="none" stroke="#333" stroke-width="2.5" marker-end="url(#arrow)">
+    <line x1="550" y1="145" x2="550" y2="190"/>
+    <line x1="550" y1="255" x2="550" y2="300"/>
+
+    <!-- Failure path -->
+    <path d="M410 332 L210 332 L210 430"/>
+
+    <!-- Fallback result -->
+    <path d="M350 462 L750 462"/>
+
+    <!-- Preferred success -->
+    <path d="M690 332 L890 332 L890 430"/>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#333">
+    <text x="225" y="318">failure</text>
+    <text x="700" y="318">success</text>
+    <text x="550" y="447" text-anchor="middle">fallback result</text>
+    <text x="890" y="405" text-anchor="middle">preferred result</text>
+  </g>
+
+  <!-- Legend / intent -->
+  <text x="550" y="575" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="15" fill="#555">
+    Preferred solver is attempted first; the classical solver preserves business continuity when it fails.
+  </text>
+</svg>

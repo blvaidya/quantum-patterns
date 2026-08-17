@@ -1,0 +1,9 @@
+solver:
+
+  preferred: quantum
+
+  fallback: classical
+
+  timeout: 10
+
+  enableFallback: true

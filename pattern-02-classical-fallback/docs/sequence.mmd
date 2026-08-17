@@ -1,0 +1,26 @@
+sequenceDiagram
+
+participant Business
+participant Adapter
+participant Preferred
+participant Classical
+
+Business->>Adapter: optimize(request)
+
+Adapter->>Preferred: solve(request)
+
+alt Preferred succeeds
+    Preferred-->>Adapter: optimization result
+    Adapter-->>Business: result
+
+else Preferred fails
+
+    Preferred--x Adapter: exception
+
+    Adapter->>Classical: solve(request)
+
+    Classical-->>Adapter: fallback result
+
+    Adapter-->>Business: result
+
+end

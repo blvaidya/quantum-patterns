@@ -1,0 +1,17 @@
+
+services:
+
+  business-service:
+
+    image: enterprise-business
+
+    depends_on:
+      - preferred-solver
+
+  preferred-solver:
+
+    image: experimental-solver
+
+  classical-solver:
+
+    image: classical-reference
